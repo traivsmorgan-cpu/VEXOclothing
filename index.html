@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VEXO Clothing (Copy)</title>
+<style>
+:root{--bg:#F5F5F5;--card:#fff;--tx:#111;--mut:#6b6b6b;--pri:#0B3D2E;--logo:#0B3D2E;--acc:#0B3D2E;--sil:#D4AF37;--soft:rgba(212,175,55,.2);--grad:linear-gradient(135deg,#F0D877,#D4AF37 55%,#9A7B14);--sh:0 4px 16px rgba(0,0,0,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0d0d;--card:#1a1a1a;--tx:#f2f2f2;--mut:#9a9a9a;--pri:#fff;--sh:0 4px 16px rgba(0,0,0,.5);--acc:#1F6B50;--sil:#D4AF37;--soft:rgba(212,175,55,.22);--logo:#D4AF37;--grad:linear-gradient(135deg,#F0D877,#D4AF37 55%,#9A7B14)}}
+:root[data-theme="dark"]{--bg:#0d0d0d;--card:#1a1a1a;--tx:#f2f2f2;--mut:#9a9a9a;--pri:#fff;--sh:0 4px 16px rgba(0,0,0,.5);--acc:#1F6B50;--sil:#D4AF37;--soft:rgba(212,175,55,.22);--logo:#D4AF37;--grad:linear-gradient(135deg,#F0D877,#D4AF37 55%,#9A7B14)}
+*{box-sizing:border-box;margin:0;font-family:"Sora","Segoe UI",system-ui,sans-serif}
+html,body{height:100%;background:var(--bg);color:var(--tx)}
+button{cursor:pointer;border:0;font:inherit;color:inherit;background:none}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--sil);outline-offset:2px}
+#app{max-width:440px;height:100%;margin:0 auto;display:flex;flex-direction:column;position:relative;background:var(--bg)}
+#view{flex:1;overflow-y:auto;padding:16px 16px 24px}
+.logo{font-weight:800;letter-spacing:.32em;font-size:22px;color:var(--logo)}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+h2{font-size:17px;margin:20px 0 10px;display:flex;justify-content:space-between;align-items:baseline}
+h2 small{color:var(--mut);font-weight:400;font-size:12px}
+.search{display:flex;gap:8px;background:var(--card);border-radius:14px;padding:10px 14px;box-shadow:var(--sh)}
+.search input{flex:1;border:0;background:none;color:var(--tx);font-size:14px}
+.banner{margin-top:14px;border-radius:20px;padding:22px;background:#0B3D2E;color:#fff;position:relative;overflow:hidden;min-height:140px;animation:rise .5s ease}
+.banner::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:var(--grad);opacity:.85}
+.banner b{font-size:22px;display:block;max-width:200px;line-height:1.2}.banner p{color:#cfe3da;font-size:12px;margin:6px 0 12px;max-width:190px}
+.pill{display:inline-block;background:#D4AF37;color:#0B3D2E;font-weight:700;font-size:12px;border-radius:99px;padding:8px 16px;position:relative;z-index:1}
+.row{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x mandatory}
+.row .card{min-width:150px;scroll-snap-align:start}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--sh);overflow:hidden;position:relative}
+.pimg{height:110px;display:grid;place-items:center;font-size:44px;background:linear-gradient(160deg,var(--soft),transparent)}
+.pb{padding:10px 12px 12px}.pn{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr{font-weight:800;font-size:14px;margin-top:4px}.old{color:var(--mut);text-decoration:line-through;font-size:11px;font-weight:400;margin-left:4px}
+.tag{position:absolute;top:8px;left:8px;background:#0B3D2E;color:#D4AF37;font-size:10px;font-weight:700;border-radius:8px;padding:3px 7px}
+.heart{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:50%;background:var(--card);box-shadow:var(--sh);font-size:15px}
+.add{margin-top:8px;width:100%;background:var(--acc);color:#D4AF37;border-radius:10px;padding:8px;font-size:12px;font-weight:700}
+.add:active{transform:scale(.97)}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cat{text-align:center;font-size:10px;color:var(--mut)}.cat span{display:grid;place-items:center;height:48px;border-radius:14px;background:var(--card);box-shadow:var(--sh);font-size:22px;margin-bottom:4px}
+.cat.on span{background:var(--pri)}
+.btn{display:block;width:100%;background:var(--acc);color:#D4AF37;border-radius:14px;padding:14px;font-weight:700;font-size:14px;text-align:center}
+.btn.alt{background:var(--card);color:var(--tx);box-shadow:var(--sh)}
+nav{display:flex;background:var(--card);box-shadow:0 -4px 16px rgba(0,0,0,.08);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;font-size:10px;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px;position:relative}
+nav button i{font-style:normal;font-size:20px}nav button.on{color:var(--tx);font-weight:700}
+nav button.on::before{content:"";position:absolute;top:-8px;width:24px;height:3px;border-radius:3px;background:var(--grad)}
+.bd{position:absolute;top:-3px;right:calc(50% - 20px);background:#0B3D2E;color:#D4AF37;border:1px solid var(--sil);border-radius:99px;font-size:9px;padding:1px 5px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.chip{padding:6px 12px;border-radius:99px;background:var(--card);font-size:12px;box-shadow:var(--sh)}.chip.on{background:var(--pri);color:var(--bg)}
+.line{display:flex;gap:12px;align-items:center;padding:12px;margin-bottom:10px}.line .pimg{width:64px;height:64px;font-size:30px;border-radius:14px;flex:none}
+.qty{display:flex;gap:10px;align-items:center;margin-top:6px}.qty button{width:26px;height:26px;border-radius:8px;background:var(--soft);font-weight:700}
+.sum div{display:flex;justify-content:space-between;padding:5px 0;font-size:13px}.sum .t{font-weight:800;font-size:16px;border-top:1px dashed var(--sil);margin-top:6px;padding-top:10px}
+input.f,select.f{width:100%;padding:12px;border-radius:12px;border:1px solid var(--soft);background:var(--card);color:var(--tx);margin-bottom:8px;font-size:14px}
+.empty{text-align:center;padding:50px 20px;color:var(--mut)}.empty i{display:block;font-size:44px;font-style:normal;margin-bottom:8px}
+.steps{display:flex;gap:4px;margin:10px 0}.steps s{flex:1;height:4px;border-radius:4px;background:var(--soft);text-decoration:none}.steps s.d{background:var(--acc)}
+.menu button{width:100%;text-align:left;padding:14px 16px;display:flex;justify-content:space-between;font-size:14px}
+.back{font-size:13px;color:var(--mut);margin-bottom:10px}
+.hero{color:#0B3D2E;height:230px;border-radius:22px;display:grid;place-items:center;font-size:96px;background:var(--grad)}
+.dots{display:flex;gap:6px;justify-content:center;margin:8px 0}.dots b{width:7px;height:7px;border-radius:50%;background:var(--soft)}.dots b.on{background:var(--acc);width:18px;border-radius:6px}
+#toast{position:absolute;left:50%;bottom:84px;transform:translate(-50%,20px);background:#0B3D2E;color:#D4AF37;border:1px solid var(--sil);padding:10px 16px;border-radius:99px;font-size:12px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.spin{width:30px;height:30px;border:3px solid var(--soft);border-top-color:var(--pri);border-radius:50%;animation:sp .7s linear infinite;margin:60px auto}
+@keyframes sp{to{transform:rotate(360deg)}}@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+.page{animation:rise .3s ease}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div id="app"><div id="view"></div>
+<nav id="nav"></nav><div id="toast" role="status"></div></div>
+<script>
+var CATS=[["Men","👔"],["Women","👗"],["Kids","🧒"],["Shoes","👟"],["Bags","👜"],["Accessories","🧣"]];
+var P=[
+[1,"Onyx Leather Jacket","Men","🧥",45000,60000,4.5,77,12,"Atelier 9"],
+[2,"Classic Oxford Shirt","Men","👔",14500,19000,4.6,212,30,"Threadhouse"],
+[3,"Slim Chino Trousers","Men","👖",18500,25000,4.4,148,22,"Threadhouse"],
+[4,"Aso-Oke Wrap Dress","Women","👗",32000,42000,4.7,96,9,"Ìyá Couture"],
+[5,"Satin Blouse","Women","👚",12500,17500,4.3,189,40,"Atelier 9"],
+[6,"Kids Weekend Set","Kids","👕",9800,14000,4.5,64,25,"Little Loom"],
+[7,"Pulse Runner Sneakers","Shoes","👟",27500,35000,4.3,321,30,"StrideNG"],
+[8,"Suede Loafers","Shoes","🥿",24000,32000,4.6,93,14,"StrideNG"],
+[9,"Weekend Tote Bag","Bags","👜",21000,28000,4.4,258,11,"Carry Co"],
+[10,"Silver Chain Set","Accessories","📿",9800,14500,4.1,93,50,"Atelier 9"],
+[11,"Merino Scarf","Accessories","🧣",8500,12000,4.5,71,18,"Little Loom"],
+[12,"VEXO Signature Cap","Accessories","🧢",6500,9000,4.6,540,0,"VEXO Studio"]
+].map(function(a){return{id:a[0],n:a[1],c:a[2],e:a[3],p:a[4],o:a[5],r:a[6],rv:a[7],q:a[8],s:a[9]}});
+var S={tab:"home",screen:null,cat:null,q:"",cart:{},wish:{},recent:[],orders:[],promo:null,filt:{sort:"",stock:false,rate:false,disc:false},img:0,co:{}};
+S.adm="ov";S.banner="Wear-now deals up to 40% off";var PR=[{c:"VEXO10",p:10,on:1},{c:"STYLE20",p:20,on:1}],USERS=[{n:"Amaka O.",r:"Buyer",on:1},{n:"Tunde B.",r:"Buyer",on:1},{n:"Atelier 9",r:"Seller",on:1},{n:"StrideNG",r:"Seller",on:1}],REP=[{id:5,why:"Photo does not match item"},{id:10,why:"Suspected counterfeit"}];
+var $=function(s){return document.querySelector(s)};
+var money=function(n){return"₦"+n.toLocaleString("en-NG")};
+var pct=function(p){return Math.round((1-p.p/p.o)*100)};
+var find=function(id){return P.filter(function(p){return p.id==id})[0]};
+function toast(m){var t=$("#toast");t.textContent=m;t.className="on";clearTimeout(toast.h);toast.h=setTimeout(function(){t.className=""},1800)}
+function cartCount(){return Object.keys(S.cart).reduce(function(a,k){return a+S.cart[k]},0)}
+function sub(){return Object.keys(S.cart).reduce(function(a,k){return a+find(k).p*S.cart[k]},0)}
+function go(tab,screen){S.tab=tab;S.screen=screen||null;render(true)}
+function add(id,e){if(e)e.stopPropagation();var p=find(id);if(!p.q){toast("Out of stock");return}S.cart[id]=Math.min((S.cart[id]||0)+1,p.q);toast("Added to cart");renderNav()}
+function wish(id,e){if(e)e.stopPropagation();if(S.wish[id]){delete S.wish[id];toast("Removed from wishlist")}else{S.wish[id]=1;toast("Saved to wishlist")}render()}
+function open(id){S.img=0;S.recent=[id].concat(S.recent.filter(function(x){return x!=id})).slice(0,6);S.screen="p"+id;render(true)}
+function card(p){return'<div class="card" onclick="open('+p.id+')"><div class="pimg">'+p.e+'</div><span class="tag">-'+pct(p)+'%</span><button class="heart" aria-label="Wishlist" onclick="wish('+p.id+',event)">'+(S.wish[p.id]?"♥":"♡")+'</button><div class="pb"><div class="pn">'+p.n+'</div><div class="pr">'+money(p.p)+'<span class="old">'+money(p.o)+'</span></div><div style="font-size:11px;color:var(--mut);margin-top:2px">★ '+p.r+' ('+p.rv+')</div><button class="add" onclick="add('+p.id+',event)">Add to cart</button></div></div>'}
+function row(list){return'<div class="row">'+list.map(card).join("")+'</div>'}
+function home(){
+var fd=P.filter(function(p){return pct(p)>=25});
+return'<div class="top"><span class="logo">VEXO</span><button onclick="go(\'acct\',\'wl\')" aria-label="Wishlist">♡ '+Object.keys(S.wish).length+'</button></div>'+
+'<div class="search"><span>⌕</span><input id="hq" placeholder="Search clothing, brands, sellers" onkeydown="if(event.key===\'Enter\')doSearch()"></div>'+
+'<div class="banner"><b>'+S.banner+'</b><p>Use code VEXO10 at checkout.</p><span class="pill" onclick="go(\'cats\')">Shop deals</span></div>'+
+'<h2>Categories</h2><div class="cats">'+CATS.map(function(c){return'<div class="cat" onclick="S.cat=\''+c[0]+'\';go(\'cats\')"><span>'+c[1]+'</span>'+c[0]+'</div>'}).join("")+'</div>'+
+'<h2>Flash Deals <small>Ends tonight</small></h2>'+row(fd)+
+'<h2>Featured</h2>'+row(P.slice(0,5))+
+'<h2>New Arrivals</h2>'+row(P.slice(5,10))+
+'<h2>Trending</h2>'+row(P.slice().sort(function(a,b){return b.rv-a.rv}).slice(0,5))+
+'<h2>Recommended for you</h2><div class="grid">'+P.slice(6,10).map(card).join("")+'</div>'+
+(S.recent.length?'<h2>Recently viewed</h2>'+row(S.recent.map(find)):'')}
+function doSearch(){S.q=$("#hq").value;S.cat=null;go("cats","search")}
+function cats(){
+var list=P.filter(function(p){var q=S.q.toLowerCase();return(!S.cat||p.c==S.cat||0)&&(!q||(p.n+p.c+p.s).toLowerCase().indexOf(q)>-1)});
+var f=S.filt;if(f.stock)list=list.filter(function(p){return p.q>0});if(f.rate)list=list.filter(function(p){return p.r>=4.5});if(f.disc)list=list.filter(function(p){return pct(p)>=25});
+if(f.sort=="lo")list.sort(function(a,b){return a.p-b.p});if(f.sort=="hi")list.sort(function(a,b){return b.p-a.p});
+var chip=function(k,l,v){return'<button class="chip '+(f[k]==v&&v!==""?"on":"")+'" onclick="tf(\''+k+'\',\''+v+'\')">'+l+'</button>'};
+return'<div class="top"><span class="logo">VEXO</span></div><div class="search"><span>⌕</span><input id="sq" value="'+S.q+'" placeholder="Search name, brand, seller" oninput="S.q=this.value" onkeydown="if(event.key===\'Enter\')render()"></div>'+
+'<div class="row" style="margin-top:12px">'+CATS.map(function(c){return'<button class="chip '+(S.cat==c[0]?"on":"")+'" onclick="S.cat=S.cat==\''+c[0]+'\'?null:\''+c[0]+'\';render()">'+c[1]+' '+c[0]+'</button>'}).join("")+'</div>'+
+'<div class="chips">'+chip("sort","Price ↑","lo")+chip("sort","Price ↓","hi")+chip("stock","In stock",true)+chip("rate","4.5★ +",true)+chip("disc","25% off +",true)+'</div>'+
+(list.length?'<div class="grid">'+list.map(card).join("")+'</div>':'<div class="empty"><i>🔍</i>No products match. Clear a filter or try another word.</div>')}
+function tf(k,v){var f=S.filt;if(k=="sort")f.sort=f.sort==v?"":v;else f[k]=!f[k];render()}
+function prod(id){var p=find(id);var imgs=[p.e,"🖼️","📦"];
+return'<button class="back" onclick="S.screen=null;render(true)">‹ Back</button><div class="hero">'+imgs[S.img]+'</div><div class="dots">'+imgs.map(function(_,i){return'<b class="'+(i==S.img?"on":"")+'" onclick="S.img='+i+';render()"></b>'}).join("")+'</div>'+
+'<h2 style="margin-top:8px">'+p.n+'</h2><div class="pr" style="font-size:22px">'+money(p.p)+'<span class="old">'+money(p.o)+'</span> <span class="tag" style="position:static">-'+pct(p)+'%</span></div>'+
+'<p style="font-size:13px;color:var(--mut);margin:8px 0">★ '+p.r+' · '+p.rv+' reviews · '+(p.q?p.q+' in stock':'Out of stock')+'</p>'+
+'<p style="font-size:13px;line-height:1.5">Quality '+p.c.toLowerCase()+' wear in true-to-size cuts. Sizes S to XL, with easy 7-day returns.</p>'+
+'<div class="card" style="padding:14px;margin:14px 0;font-size:13px"><b>Sold by '+p.s+'</b><br><span style="color:var(--mut)">Delivery in 2–4 days · Free pickup at partner points</span></div>'+
+'<button class="btn" onclick="add('+p.id+')">Add to cart</button><div style="height:8px"></div><div style="display:flex;gap:8px"><button class="btn" onclick="add('+p.id+');go(\'cart\',\'co\')">Buy now</button><button class="btn alt" style="width:56px" onclick="wish('+p.id+')">'+(S.wish[p.id]?"♥":"♡")+'</button></div>'}
+function fee(){return sub()>=100000||!sub()?0:2500}
+function disc(){var p=PR.filter(function(x){return x.c==S.promo&&x.on})[0];return p?Math.round(sub()*p.p/100):0}
+function total(){return sub()-disc()+fee()}
+function summary(){return'<div class="card sum" style="padding:14px"><div><span>Subtotal</span><span>'+money(sub())+'</span></div>'+(disc()?'<div><span>Promo '+S.promo+'</span><span>-'+money(disc())+'</span></div>':'')+'<div><span>Delivery</span><span>'+(fee()?money(fee()):"Free")+'</span></div><div class="t"><span>Total</span><span>'+money(total())+'</span></div></div>'}
+function cart(){
+var ids=Object.keys(S.cart);
+if(!ids.length)return'<div class="top"><span class="logo">VEXO</span></div><div class="empty"><i>🛍️</i>Your cart is empty.<br><br><button class="btn" onclick="go(\'home\')">Start shopping</button></div>';
+return'<div class="top"><span class="logo">VEXO</span><b>Cart</b></div>'+ids.map(function(id){var p=find(id);return'<div class="card line"><div class="pimg">'+p.e+'</div><div style="flex:1"><div class="pn">'+p.n+'</div><div class="pr">'+money(p.p*S.cart[id])+'</div><div class="qty"><button aria-label="Less" onclick="qty('+id+',-1)">−</button>'+S.cart[id]+'<button aria-label="More" onclick="qty('+id+',1)">+</button></div></div><button aria-label="Remove" onclick="qty('+id+',-99)">✕</button></div>'}).join("")+
+'<div style="display:flex;gap:8px;margin:12px 0"><input class="f" id="pc" placeholder="Promo code" style="margin:0"><button class="btn alt" style="width:90px" onclick="applyPromo()">Apply</button></div>'+summary()+'<div style="height:12px"></div><button class="btn" onclick="go(\'cart\',\'co\')">Checkout</button>'}
+function qty(id,d){var n=(S.cart[id]||0)+d,m=find(id).q;if(n<=0)delete S.cart[id];else S.cart[id]=Math.min(n,m);render();renderNav()}
+function applyPromo(){var v=$("#pc").value.trim().toUpperCase();if(PR.filter(function(x){return x.c==v&&x.on}).length){S.promo=v;toast("Promo applied")}else toast("Code not valid or switched off");render()}
+function checkout(){
+return'<button class="back" onclick="S.screen=null;render(true)">‹ Cart</button><h2 style="margin-top:0">Checkout</h2>'+
+'<input class="f" id="c1" placeholder="Full name"><input class="f" id="c2" placeholder="Phone number" inputmode="tel"><input class="f" id="c3" placeholder="Delivery address">'+
+'<div style="display:flex;gap:8px"><select class="f" id="c4"><option>Lagos</option><option>Abuja (FCT)</option><option>Rivers</option><option>Oyo</option></select><input class="f" id="c5" placeholder="City"></div><input class="f" id="c6" placeholder="Postal code" inputmode="numeric">'+
+'<select class="f" id="c7"><option>Standard delivery (2–4 days)</option><option>Pickup point (free)</option></select><select class="f" id="c8"><option>Paystack (card, bank transfer, USSD)</option><option>Flutterwave</option><option>Pay on delivery</option></select>'+
+'<h2>Order summary</h2>'+summary()+'<div style="height:12px"></div><button class="btn" onclick="pay()">Pay '+money(total())+'</button>'}
+function pay(){
+var need=["c1","c2","c3","c5"].filter(function(i){return!$("#"+i).value.trim()});
+if(need.length){toast("Fill in name, phone, address and city");return}
+if(!cartCount()){toast("Your cart is empty");return}
+$("#view").innerHTML='<div class="spin"></div><p class="empty">Confirming payment…</p>';
+setTimeout(function(){
+var id="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
+S.orders.unshift({id:id,items:Object.keys(S.cart).map(function(k){return find(k).n+" ×"+S.cart[k]}),total:total(),date:new Date().toLocaleDateString("en-NG",{day:"numeric",month:"short",year:"numeric"}),step:1});
+S.cart={};S.promo=null;S.tab="orders";S.screen="done";render(true);renderNav()},1200)}
+var STEPS=["Pending","Confirmed","Processing","Shipped","Out for delivery","Delivered"];
+function orders(){
+if(S.screen=="done")return'<div class="empty page"><i>✅</i><b style="color:var(--tx);font-size:18px">Payment confirmed</b><p style="margin:8px 0 18px">Order '+S.orders[0].id+' is placed. You will get updates as it moves.</p><button class="btn" onclick="S.screen=null;render()">View my orders</button></div>';
+if(!S.orders.length)return'<div class="top"><span class="logo">VEXO</span><b>Orders</b></div><div class="empty"><i>📦</i>No orders yet. Your purchases appear here.<br><br><button class="btn" onclick="go(\'home\')">Browse products</button></div>';
+return'<div class="top"><span class="logo">VEXO</span><b>Orders</b></div>'+S.orders.map(function(o,i){return'<div class="card" style="padding:14px;margin-bottom:12px"><div style="display:flex;justify-content:space-between"><b>'+o.id+'</b><span style="font-size:12px;color:var(--mut)">'+o.date+'</span></div><p style="font-size:13px;margin:6px 0">'+o.items.join(", ")+'</p><b>'+money(o.total)+'</b> <span style="font-size:12px;color:var(--mut)">· Paid</span><div class="steps">'+STEPS.map(function(_,k){return'<s class="'+(k<=o.step?"d":"")+'"></s>'}).join("")+'</div><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:700">'+STEPS[o.step]+'</span>'+(o.step<5?'<button class="chip" onclick="S.orders['+i+'].step++;render()">Advance status</button>'
